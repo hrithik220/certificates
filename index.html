@@ -37,6 +37,42 @@
             position: relative;
         }
 
+        /* Futuristic grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(123, 44, 191, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(123, 44, 191, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Scan line effect */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+            animation: scan 4s linear infinite;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.5;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+
         /* Animated background elements */
         .bg-orbs {
             position: fixed;
@@ -113,19 +149,24 @@
             background: var(--yellow);
             color: var(--black);
             padding: 0.5rem 1.5rem;
-            border-radius: 50px;
+            border-radius: 0;
             font-weight: 700;
             font-size: 0.875rem;
-            letter-spacing: 1px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             margin-bottom: 1.5rem;
             box-shadow: 0 4px 20px rgba(255, 214, 10, 0.4);
-            animation: pulse 2s infinite;
+            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+            position: relative;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 4px 20px rgba(255, 214, 10, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 6px 30px rgba(255, 214, 10, 0.6); }
+        .corner-badge::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: var(--yellow);
+            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+            z-index: -1;
         }
 
         h1 {
@@ -135,8 +176,13 @@
             line-height: 1.1;
             color: var(--yellow);
             margin-bottom: 1rem;
-            letter-spacing: 2px;
-            text-shadow: 0 0 30px rgba(255, 214, 10, 0.3);
+            letter-spacing: 8px;
+            text-shadow: 
+                0 0 10px rgba(255, 214, 10, 0.5),
+                0 0 20px rgba(255, 214, 10, 0.3),
+                0 0 30px rgba(255, 214, 10, 0.2);
+            text-transform: uppercase;
+            position: relative;
         }
 
         .subtitle {
@@ -145,6 +191,9 @@
             font-weight: 400;
             max-width: 600px;
             margin: 0 auto;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
         }
 
         /* Bio Section */
@@ -156,11 +205,12 @@
         .bio-card {
             background: var(--black-light);
             backdrop-filter: blur(10px);
-            border-radius: 24px;
+            border-radius: 0;
             padding: 3rem;
             border: 2px solid var(--purple);
             position: relative;
             overflow: hidden;
+            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
         }
 
         .bio-card::before {
@@ -168,9 +218,21 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            height: 4px;
+            width: 100%;
+            height: 2px;
             background: var(--yellow);
+            box-shadow: 0 0 10px var(--yellow);
+        }
+
+        .bio-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--purple);
+            box-shadow: 0 0 10px var(--purple);
         }
 
         @keyframes gradientShift {
@@ -190,13 +252,24 @@
             width: 80px;
             height: 80px;
             background: var(--yellow);
-            border-radius: 50%;
+            border-radius: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
-            box-shadow: 0 8px 30px rgba(255, 214, 10, 0.4);
+            box-shadow: 0 0 30px rgba(255, 214, 10, 0.5);
             flex-shrink: 0;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            position: relative;
+        }
+
+        .avatar::before {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: var(--yellow);
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            z-index: -1;
         }
 
         .bio-intro {
@@ -253,27 +326,45 @@
             gap: 1rem;
             background: var(--black-lighter);
             padding: 1.25rem;
-            border-radius: 12px;
+            border-radius: 0;
             border: 2px solid var(--purple);
             transition: all 0.3s ease;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            position: relative;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(123, 44, 191, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-item:hover::before {
+            opacity: 1;
         }
 
         .stat-item:hover {
             background: var(--purple-darker);
             border-color: var(--yellow);
             transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(255, 214, 10, 0.2);
         }
 
         .stat-icon {
             width: 50px;
             height: 50px;
             background: var(--purple);
-            border-radius: 10px;
+            border-radius: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
             flex-shrink: 0;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
         }
 
         .stat-info {
@@ -292,6 +383,79 @@
             color: var(--text-light);
         }
 
+        /* Coming Soon Section */
+        .coming-soon-section {
+            padding: 2rem 0 4rem;
+            animation: fadeInUp 1s ease-out 0.7s both;
+        }
+
+        .coming-soon-card {
+            background: var(--black-light);
+            border: 2px solid var(--yellow);
+            border-radius: 0;
+            padding: 4rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px);
+        }
+
+        .coming-soon-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--yellow);
+            box-shadow: 0 0 15px var(--yellow);
+            animation: shimmer 2s infinite;
+        }
+
+        .coming-soon-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--yellow);
+            box-shadow: 0 0 15px var(--yellow);
+            animation: shimmer 2s infinite 1s;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .coming-soon-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: rocket 2s ease-in-out infinite;
+        }
+
+        @keyframes rocket {
+            0%, 100% { transform: translateY(0) rotate(-45deg); }
+            50% { transform: translateY(-20px) rotate(-45deg); }
+        }
+
+        .coming-soon-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon-text {
+            font-size: 1.15rem;
+            color: var(--text-dim);
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
         /* Certificate Grid */
         .certificates-section {
             padding: 4rem 0 6rem;
@@ -308,7 +472,7 @@
         .certificate-card {
             background: var(--black-light);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
+            border-radius: 0;
             padding: 2rem;
             border: 2px solid var(--purple);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -316,6 +480,7 @@
             position: relative;
             overflow: hidden;
             animation: fadeInScale 0.6s ease-out both;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
         }
 
         .certificate-card::before {
@@ -323,23 +488,41 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            height: 4px;
+            width: 0;
+            height: 2px;
             background: var(--yellow);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
+            box-shadow: 0 0 10px var(--yellow);
+            transition: width 0.4s ease;
         }
 
         .certificate-card:hover::before {
-            transform: scaleX(1);
+            width: 100%;
+        }
+
+        .certificate-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 0;
+            background: var(--yellow);
+            box-shadow: 0 0 10px var(--yellow);
+            transition: height 0.4s ease 0.2s;
+        }
+
+        .certificate-card:hover::after {
+            height: 100%;
         }
 
         .certificate-card:hover {
             transform: translateY(-10px);
             background: var(--purple-darker);
             border-color: var(--yellow);
-            box-shadow: 0 20px 60px rgba(123, 44, 191, 0.4), 0 0 40px rgba(255, 214, 10, 0.2);
+            box-shadow: 
+                0 20px 60px rgba(123, 44, 191, 0.4), 
+                0 0 40px rgba(255, 214, 10, 0.2),
+                inset 0 0 20px rgba(123, 44, 191, 0.1);
         }
 
         .certificate-card:nth-child(1) { animation-delay: 0.1s; }
@@ -353,31 +536,33 @@
             width: 60px;
             height: 60px;
             background: var(--yellow);
-            border-radius: 12px;
+            border-radius: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 1.5rem;
             font-size: 1.75rem;
-            box-shadow: 0 8px 20px rgba(255, 214, 10, 0.3);
+            box-shadow: 0 0 20px rgba(255, 214, 10, 0.5);
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
         }
 
         .cert-image-container {
             width: 100%;
             height: 200px;
             margin-bottom: 1.5rem;
-            border-radius: 12px;
+            border-radius: 0;
             overflow: hidden;
             cursor: pointer;
             position: relative;
             background: var(--black-lighter);
             border: 2px solid var(--purple);
             transition: all 0.3s ease;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
         }
 
         .cert-image-container:hover {
             transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(255, 214, 10, 0.4);
+            box-shadow: 0 8px 25px rgba(255, 214, 10, 0.4), 0 0 15px rgba(123, 44, 191, 0.3);
             border-color: var(--yellow);
         }
 
@@ -416,10 +601,14 @@
             max-width: 90%;
             max-height: 90%;
             object-fit: contain;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(123, 44, 191, 0.6), 0 0 100px rgba(255, 214, 10, 0.3);
+            border-radius: 0;
+            box-shadow: 
+                0 20px 60px rgba(123, 44, 191, 0.6), 
+                0 0 100px rgba(255, 214, 10, 0.3),
+                0 0 200px rgba(123, 44, 191, 0.2);
             border: 3px solid var(--yellow);
             animation: zoomIn 0.3s ease;
+            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
         }
 
         .modal-close {
@@ -433,7 +622,7 @@
             background: var(--purple);
             width: 50px;
             height: 50px;
-            border-radius: 50%;
+            border-radius: 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -441,12 +630,15 @@
             line-height: 1;
             padding-bottom: 5px;
             border: 2px solid var(--yellow);
+            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+            box-shadow: 0 0 15px rgba(255, 214, 10, 0.5);
         }
 
         .modal-close:hover {
             background: var(--yellow);
             color: var(--black);
             transform: rotate(90deg);
+            box-shadow: 0 0 25px rgba(255, 214, 10, 0.8);
         }
 
         @keyframes fadeIn {
@@ -539,23 +731,24 @@
             width: 60px;
             height: 60px;
             background: var(--yellow);
-            border-radius: 50%;
+            border-radius: 0;
             border: none;
             font-size: 2rem;
             color: var(--black);
             cursor: pointer;
-            box-shadow: 0 8px 30px rgba(255, 214, 10, 0.5);
+            box-shadow: 0 0 30px rgba(255, 214, 10, 0.6);
             transition: all 0.3s ease;
             z-index: 100;
             display: flex;
             align-items: center;
             justify-content: center;
             animation: fadeInUp 1s ease-out 0.6s both;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
         }
 
         .add-cert-btn:hover {
             transform: scale(1.1) rotate(90deg);
-            box-shadow: 0 12px 40px rgba(255, 214, 10, 0.7);
+            box-shadow: 0 0 50px rgba(255, 214, 10, 0.9);
             background: var(--yellow-bright);
         }
 
@@ -634,6 +827,18 @@
             .bio-text {
                 font-size: 1rem;
             }
+
+            .coming-soon-card {
+                padding: 3rem 2rem;
+            }
+
+            .coming-soon-title {
+                font-size: 2rem;
+            }
+
+            .coming-soon-text {
+                font-size: 1rem;
+            }
         }
 
         /* Footer */
@@ -705,23 +910,13 @@
                 <div class="bio-header">
                     <div class="avatar">👨‍💻</div>
                     <div class="bio-intro">
-                        <h2 class="bio-name">About Me</h2>
-                        <p class="bio-title">Computer Science Student | Tech Enthusiast</p>
+                        <h2 class="bio-name">Hrithik Dev Burman</h2>
+                        <p class="bio-title">Computer Science Student @ BRAC University</p>
                     </div>
                 </div>
                 <div class="bio-content">
                     <p class="bio-text">
-                        I'm <span class="highlight">Hrithik</span>, a passionate Computer Science student from 
-                        <span class="highlight">BRAC University</span>, Department of Computer Science and Engineering. 
-                        Driven by curiosity and innovation, I'm constantly pushing the boundaries of technology and learning. 
-                        My journey in tech is fueled by a commitment to excellence and a vision to create impactful solutions 
-                        that make a difference in the digital world.
-                    </p>
-                    <p class="bio-text">
-                        From coding elegant algorithms to building robust applications, I embrace every challenge as an 
-                        opportunity to grow. These certificates represent milestones in my continuous quest for knowledge 
-                        and technical mastery. Each achievement is a testament to my dedication, hard work, and passion for 
-                        staying at the forefront of technological advancement.
+                        Passionate about technology and innovation. Building the future, one line of code at a time.
                     </p>
                 </div>
                 <div class="bio-stats">
@@ -743,7 +938,7 @@
                         <div class="stat-icon">🏆</div>
                         <div class="stat-info">
                             <p class="stat-label">Certificates</p>
-                            <p class="stat-value">8 Achievements</p>
+                            <p class="stat-value">6 Achievements</p>
                         </div>
                     </div>
                 </div>
@@ -753,107 +948,92 @@
         <!-- Certificates Section -->
         <section class="certificates-section">
             <div class="grid" id="certificatesGrid">
-                <!-- Certificate Slot 1 -->
+                <!-- Certificate 1: Next Gen Ideathon 2025 -->
                 <div class="certificate-card">
                     <div class="cert-image-container">
-                        <img src="certificates/certificate1.jpg" alt="Certificate 1" class="cert-image">
+                        <img src="certificates/ideathon.png" alt="Next Gen Ideathon 2025 Certificate" class="cert-image">
                     </div>
-                    <div class="cert-icon">🎓</div>
-                    <h3 class="cert-title">Certificate Title 1</h3>
-                    <p class="cert-issuer">Issuing Organization</p>
-                    <p class="cert-date">Completed: Month Year</p>
-                    <p class="cert-description">Add your certificate description here. Describe what you learned and achieved.</p>
+                    <div class="cert-icon">💡</div>
+                    <h3 class="cert-title">Next Gen Ideathon 2025</h3>
+                    <p class="cert-issuer">BRAC University - School of Biotechnology</p>
+                    <p class="cert-date">Completed: 2025</p>
+                    <p class="cert-description">Certificate of Appreciation for valuable participation and contribution to the success of Next Gen Ideathon 2025. Recognized for creativity and innovation that truly made a difference.</p>
                 </div>
 
-                <!-- Certificate Slot 2 -->
+                <!-- Certificate 2: Graphics Design (Beginner Level) -->
                 <div class="certificate-card">
                     <div class="cert-image-container">
-                        <img src="certificates/certificate2.jpg" alt="Certificate 2" class="cert-image">
-                    </div>
-                    <div class="cert-icon">💻</div>
-                    <h3 class="cert-title">Certificate Title 2</h3>
-                    <p class="cert-issuer">Issuing Organization</p>
-                    <p class="cert-date">Completed: Month Year</p>
-                    <p class="cert-description">Add your certificate description here. Describe what you learned and achieved.</p>
-                </div>
-
-                <!-- Certificate Slot 3 -->
-                <div class="certificate-card">
-                    <div class="cert-image-container">
-                        <img src="certificates/certificate3.jpg" alt="Certificate 3" class="cert-image">
-                    </div>
-                    <div class="cert-icon">🏆</div>
-                    <h3 class="cert-title">Certificate Title 3</h3>
-                    <p class="cert-issuer">Issuing Organization</p>
-                    <p class="cert-date">Completed: Month Year</p>
-                    <p class="cert-description">Add your certificate description here. Describe what you learned and achieved.</p>
-                </div>
-
-                <!-- Certificate Slot 4 -->
-                <div class="certificate-card">
-                    <div class="cert-image-container">
-                        <img src="certificates/certificate4.jpg" alt="Certificate 4" class="cert-image">
-                    </div>
-                    <div class="cert-icon">⭐</div>
-                    <h3 class="cert-title">Certificate Title 4</h3>
-                    <p class="cert-issuer">Issuing Organization</p>
-                    <p class="cert-date">Completed: Month Year</p>
-                    <p class="cert-description">Add your certificate description here. Describe what you learned and achieved.</p>
-                </div>
-
-                <!-- Certificate Slot 5 -->
-                <div class="certificate-card">
-                    <div class="cert-image-container">
-                        <img src="certificates/certificate5.jpg" alt="Certificate 5" class="cert-image">
+                        <img src="certificates/graphics-design.png" alt="Graphics Design Certificate" class="cert-image">
                     </div>
                     <div class="cert-icon">🎨</div>
-                    <h3 class="cert-title">Certificate Title 5</h3>
-                    <p class="cert-issuer">Issuing Organization</p>
-                    <p class="cert-date">Completed: Month Year</p>
-                    <p class="cert-description">Add your certificate description here. Describe what you learned and achieved.</p>
+                    <h3 class="cert-title">Graphics Design (Beginner Level)</h3>
+                    <p class="cert-issuer">BRAC University - Residential Semester</p>
+                    <p class="cert-date">Completed: May 28 - August 28, 2023</p>
+                    <p class="cert-description">Successfully completed Graphics Design as an Extra Curricular Activity at BRAC University's Residential Semester. Certificate ID: 22301013, RS-63/Summer-2023.</p>
                 </div>
 
-                <!-- Certificate Slot 6 -->
+                <!-- Certificate 3: ReactJS for Beginners -->
                 <div class="certificate-card">
                     <div class="cert-image-container">
-                        <img src="certificates/certificate6.jpg" alt="Certificate 6" class="cert-image">
+                        <img src="certificates/reactjs.png" alt="ReactJS for Beginners Certificate" class="cert-image">
                     </div>
-                    <div class="cert-icon">🚀</div>
-                    <h3 class="cert-title">Certificate Title 6</h3>
-                    <p class="cert-issuer">Issuing Organization</p>
-                    <p class="cert-date">Completed: Month Year</p>
-                    <p class="cert-description">Add your certificate description here. Describe what you learned and achieved.</p>
+                    <div class="cert-icon">⚛️</div>
+                    <h3 class="cert-title">ReactJS for Beginners</h3>
+                    <p class="cert-issuer">Great Learning</p>
+                    <p class="cert-date">Completed: February 7, 2026</p>
+                    <p class="cert-description">Successfully completed ReactJS for Beginners course, mastering the fundamentals of React library for building dynamic user interfaces. Certificate Code: 9813382.</p>
                 </div>
 
-                <!-- Certificate Slot 7 -->
+                <!-- Certificate 4: Introduction to HTML -->
                 <div class="certificate-card">
                     <div class="cert-image-container">
-                        <img src="certificates/certificate7.jpg" alt="Certificate 7" class="cert-image">
+                        <img src="certificates/html.png" alt="Introduction to HTML Certificate" class="cert-image">
                     </div>
-                    <div class="cert-icon">📊</div>
-                    <h3 class="cert-title">Certificate Title 7</h3>
-                    <p class="cert-issuer">Issuing Organization</p>
-                    <p class="cert-date">Completed: Month Year</p>
-                    <p class="cert-description">Add your certificate description here. Describe what you learned and achieved.</p>
+                    <div class="cert-icon">🌐</div>
+                    <h3 class="cert-title">Introduction to HTML</h3>
+                    <p class="cert-issuer">Great Learning</p>
+                    <p class="cert-date">Completed: February 6, 2026</p>
+                    <p class="cert-description">Successfully completed Introduction to HTML course, learning the fundamental building blocks of web development and markup language. Certificate Code: 9813002.</p>
                 </div>
 
-                <!-- Certificate Slot 8 -->
+                <!-- Certificate 5: Generative AI for Beginners -->
                 <div class="certificate-card">
                     <div class="cert-image-container">
-                        <img src="certificates/certificate8.jpg" alt="Certificate 8" class="cert-image">
+                        <img src="certificates/generative-ai.png" alt="Generative AI for Beginners Certificate" class="cert-image">
                     </div>
-                    <div class="cert-icon">🔥</div>
-                    <h3 class="cert-title">Certificate Title 8</h3>
-                    <p class="cert-issuer">Issuing Organization</p>
-                    <p class="cert-date">Completed: Month Year</p>
-                    <p class="cert-description">Add your certificate description here. Describe what you learned and achieved.</p>
+                    <div class="cert-icon">🤖</div>
+                    <h3 class="cert-title">Generative AI for Beginners</h3>
+                    <p class="cert-issuer">Great Learning</p>
+                    <p class="cert-date">Completed: February 6, 2026</p>
+                    <p class="cert-description">Successfully completed Generative AI for Beginners course, exploring the fundamentals of AI-powered content generation and machine learning technologies. Certificate Code: 9811940.</p>
+                </div>
+
+                <!-- Certificate 6: Complete Web Development Course -->
+                <div class="certificate-card">
+                    <div class="cert-image-container">
+                        <img src="certificates/web-development.png" alt="Complete Web Development Course Certificate" class="cert-image">
+                    </div>
+                    <div class="cert-icon">💻</div>
+                    <h3 class="cert-title">Complete Web Development Course</h3>
+                    <p class="cert-issuer">Programming Hero</p>
+                    <p class="cert-date">Completed: Batch 11</p>
+                    <p class="cert-description">Successfully completed a rigorous course covering JavaScript, HTML, CSS, and React. Built several projects demonstrating excellence as a hard-working, dedicated, and quick learner who finished all assigned tasks on time.</p>
+                </div>
+            </div>
+
+            <!-- Many More to Come Section -->
+            <div class="coming-soon-section">
+                <div class="coming-soon-card">
+                    <div class="coming-soon-icon">🚀</div>
+                    <h3 class="coming-soon-title">Many More to Come...</h3>
+                    <p class="coming-soon-text">The journey never stops! Stay tuned for more achievements and certifications as I continue to learn, grow, and push the boundaries of technology.</p>
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
         <footer>
-            <p>© 2025 All Rights Reserved to HRITHIK |</p>
+            <p>© 2025 All Rights Reserved to HRITHIK | Built with 💜 and ⚡</p>
         </footer>
     </div>
 
